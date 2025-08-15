@@ -1,6 +1,6 @@
 # Cold-Start-Copilot
 
-Note: This project is a work in progress.  
+This project is a work in progress.  
 
 **Onboard to any codebase in seconds.** An AI-powered code assistant that indexes your repository and answers questions about it with sub-second latency.
 

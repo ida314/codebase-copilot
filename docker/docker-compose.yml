@@ -1,0 +1,33 @@
+# docker/docker-compose.yml
+services:
+  app:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    command: >
+      gunicorn -k uvicorn.workers.UvicornWorker
+               -w 2
+               -b 0.0.0.0:8000
+               src.api:app
+    ports:
+      - "8000:8000"
+    environment:
+      - QDRANT_PATH=/qdrant_data
+      - COLLECTION_NAME=code_chunks
+      - EMBEDDING_MODEL=BAAI/bge-m3
+      - MODEL_CACHE_DIR=./model_cache
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - DEBUG=False
+    depends_on:
+      - qdrant
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant_storage
+
+volumes:
+  qdrant_data:
+    driver: local

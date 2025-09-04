@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Lint
+        run: |
+          pip install flake8
+          flake8 .
+
+      - name: Run Unit Tests
+        run: |
+          pip install pytest
+          pytest --maxfail=1 --disable-warnings -q
+
+      - name: Build Docker Image
+        run: |
+          docker build -f docker/Dockerfile -t cold-start-copilot .
+
+      - name: Run Docker Container Tests
+        run: |
+          docker run --rm cold-start-copilot pytest --maxfail=1 --disable-warnings -q

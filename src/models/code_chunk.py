@@ -8,7 +8,7 @@ import numpy as np
 @dataclass
 class CodeChunk:
     """Represents a chunk of code or documentation"""
-    
+
     id: str
     content: str
     file_path: str
@@ -17,7 +17,7 @@ class CodeChunk:
     end_line: int
     metadata: Dict = field(default_factory=dict)
     embedding: Optional[np.ndarray] = None
-    
+
     def to_dict(self) -> Dict:
         """Convert to dictionary for storage"""
         return {
@@ -27,11 +27,11 @@ class CodeChunk:
             "language": self.language,
             "start_line": self.start_line,
             "end_line": self.end_line,
-            "metadata": self.metadata
+            "metadata": self.metadata,
         }
-    
+
     @classmethod
-    def from_dict(cls, data: Dict) -> 'CodeChunk':
+    def from_dict(cls, data: Dict) -> "CodeChunk":
         """Create instance from dictionary"""
         return cls(
             id=data["id"],
@@ -40,5 +40,5 @@ class CodeChunk:
             language=data["language"],
             start_line=data["start_line"],
             end_line=data["end_line"],
-            metadata=data.get("metadata", {})
+            metadata=data.get("metadata", {}),
         )

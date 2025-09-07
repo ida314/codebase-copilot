@@ -1,6 +1,5 @@
 # tests/test_chunker.py
 from pathlib import Path
-import pytest
 
 from src.core.chunker import CodeChunker
 from src.models.code_chunk import CodeChunk

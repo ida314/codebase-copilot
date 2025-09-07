@@ -18,7 +18,15 @@ if __name__ == "__main__":
         if is_dataclass(c):
             return asdict(c)
         # Fallback: grab typical attributes if not a dataclass
-        fields = ["id", "content", "file_path", "language", "start_line", "end_line", "metadata"]
+        fields = [
+            "id",
+            "content",
+            "file_path",
+            "language",
+            "start_line",
+            "end_line",
+            "metadata",
+        ]
         return {f: getattr(c, f, None) for f in fields}
 
     def iter_files(paths, recursive: bool, exts: set | None):
@@ -54,40 +62,47 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(
         prog="code-chunker",
-        description="Chunk source files into semantic or sliding-window chunks."
+        description="Chunk source files into semantic or sliding-window chunks.",
     )
     parser.add_argument(
-        "paths", nargs="+",
-        help="File(s) or directory(ies) to process."
+        "paths", nargs="+", help="File(s) or directory(ies) to process."
     )
     parser.add_argument(
-        "-r", "--recursive", action="store_true",
-        help="Recurse into directories."
+        "-r", "--recursive", action="store_true", help="Recurse into directories."
     )
     parser.add_argument(
-        "--ext", nargs="*", default=None,
+        "--ext",
+        nargs="*",
+        default=None,
         help="Optional list of file extensions to include (e.g. --ext .py .ts .md). "
-             "Defaults to all known LANGUAGE_EXTENSIONS."
+        "Defaults to all known LANGUAGE_EXTENSIONS.",
     )
     parser.add_argument(
-        "--max-tokens", type=int, default=None,
-        help="Override settings.max_tokens for chunking."
+        "--max-tokens",
+        type=int,
+        default=None,
+        help="Override settings.max_tokens for chunking.",
     )
     parser.add_argument(
-        "--overlap", type=int, default=None,
-        help="Override settings.chunk_overlap for chunking."
+        "--overlap",
+        type=int,
+        default=None,
+        help="Override settings.chunk_overlap for chunking.",
     )
     parser.add_argument(
-        "-f", "--format", choices=["jsonl", "json", "pretty"], default="jsonl",
-        help="Output format: jsonl (default), json (compact array), pretty (indented array)."
+        "-f",
+        "--format",
+        choices=["jsonl", "json", "pretty"],
+        default="jsonl",
+        help="Output format: jsonl (default), json (compact array), pretty (indented array).",
     )
     parser.add_argument(
-        "-o", "--out", default="-",
-        help='Output file path (default "-" for stdout).'
+        "-o", "--out", default="-", help='Output file path (default "-" for stdout).'
     )
     parser.add_argument(
-        "--summary", action="store_true",
-        help="Print a brief summary to stderr after processing."
+        "--summary",
+        action="store_true",
+        help="Print a brief summary to stderr after processing.",
     )
 
     args = parser.parse_args()

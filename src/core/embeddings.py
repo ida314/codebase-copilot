@@ -15,13 +15,19 @@ class EmbeddingManager:
 
     def _get_cache_key(self, text: str) -> str:
         """Generate a cache key for a given text using MD5."""
-        return hashlib.md5(text.encode('utf-8')).hexdigest()
+        return hashlib.md5(text.encode("utf-8")).hexdigest()
 
-    def encode(self, texts, batch_size: int = 32, show_progress_bar: bool = False, normalize_embeddings: bool = True):
+    def encode(
+        self,
+        texts,
+        batch_size: int = 32,
+        show_progress_bar: bool = False,
+        normalize_embeddings: bool = True,
+    ):
         """Encode one or more texts into embeddings with caching.
 
         If a text has been encoded before, return the cached embedding.
-        
+
         Args:
             texts (str or List[str]): The input text(s) to encode.
             batch_size (int): Batch size for encoding (if needed).
@@ -35,12 +41,12 @@ class EmbeddingManager:
         if isinstance(texts, str):
             texts = [texts]
             single_input = True
-        
+
         # Prepare list for embeddings and track indexes to encode
         embeddings = [None] * len(texts)
         texts_to_encode = []
         index_map = {}
-        
+
         with self.lock:
             for i, text in enumerate(texts):
                 key = self._get_cache_key(text)
@@ -56,7 +62,7 @@ class EmbeddingManager:
                 texts_to_encode,
                 batch_size=batch_size,
                 show_progress_bar=show_progress_bar,
-                normalize_embeddings=normalize_embeddings
+                normalize_embeddings=normalize_embeddings,
             )
             with self.lock:
                 j = 0

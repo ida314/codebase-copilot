@@ -1,11 +1,13 @@
 """Logging utilities for the project."""
 
 import logging as _log
-import os, sys
+import os
+import sys
 
 _CONFIGURED = False
 _FMT = "%(asctime)s | %(levelname)s | %(name)s:%(lineno)d — %(message)s"
 _DATEFMT = "%Y-%m-%d %H:%M:%S"
+
 
 def configure(level: str | int | None = None) -> None:
     """Idempotent setup. Uses LOG_LEVEL env if provided."""
@@ -36,6 +38,7 @@ def configure(level: str | int | None = None) -> None:
     root.addHandler(handler)
 
     _CONFIGURED = True
+
 
 def get_logger(name: str | None = None) -> _log.Logger:
     """Project-wide accessor. Auto-configures on first call."""

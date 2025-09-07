@@ -1,0 +1,36 @@
+name: Tests
+
+on: 
+  push:
+    branches: [main]
+    pull_request: 
+
+jobs:
+  tests:
+    runs_on: ubuntu-latest
+
+    steps:
+      # get my code
+      - name: Checkout
+        uses: actions/checkout@v$
+
+      # settup python 
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      # install deps
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip 
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi 
+          if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+          # If no dev file, at least install pytest
+          pip install pytest
+
+      - name: Run tests
+        run: pytest -q
+        
+  

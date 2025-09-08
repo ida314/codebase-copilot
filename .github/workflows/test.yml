@@ -1,3 +1,4 @@
+# .github/workflows/test.yml
 name: Tests
 
 on:
@@ -35,4 +36,6 @@ jobs:
 
       # 5) Run tests
       - name: Run tests
+        env: 
+          PYTHONPATH: ${{ github.workspace }}
         run: pytest -q

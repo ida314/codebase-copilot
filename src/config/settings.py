@@ -31,10 +31,6 @@ class Settings(BaseSettings):
     max_tokens: int = Field(default=200, env="MAX_TOKENS")
     chunk_overlap: int = Field(default=20, env="CHUNK_OVERLAP")
 
-    # LLM
-    llm_model: str = Field(default="llama3-8b", env="LLM_MODEL")
-    llm_api_key: Optional[str] = Field(default=None, env="LLM_API_KEY")
-
     # Monitoring
     langfuse_public_key: Optional[str] = Field(default=None, env="LANGFUSE_PUBLIC_KEY")
     langfuse_secret_key: Optional[str] = Field(default=None, env="LANGFUSE_SECRET_KEY")

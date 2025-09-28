@@ -1,6 +1,7 @@
 # Cold-Start-Copilot
 
 This project is a work in progress.  
+Check out the frontend repo here: https://github.com/ida314/codebase-copilot-web
 
 **Onboard to any codebase in seconds.** An AI-powered code assistant that indexes your repository and answers questions about it with sub-second latency.
 

@@ -3,7 +3,7 @@
 from pathlib import Path
 
 from src.core.chunker import CodeChunker
-from src.utils.logging import get_logger
+from src.app.core.logging import get_logger
 
 logger = get_logger(__name__)
 

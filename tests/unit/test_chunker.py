@@ -2,7 +2,7 @@
 from pathlib import Path
 
 from src.core.chunker import CodeChunker
-from src.models.code_chunk import CodeChunk
+from src.domain.entities import CodeChunk
 
 
 def _make_file(tmp_path: Path, name: str, text: str) -> Path:

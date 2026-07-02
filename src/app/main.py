@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 # logging helper (your fallback pattern)
 try:
-    from src.utils.logging import get_logger
+    from src.app.core.logging import get_logger
 except Exception: # pragma: no cover
     import logging
 
@@ -15,7 +15,7 @@ log = get_logger(__name__)
 
 # Optional settings (replace with your own Settings if present)
 try:
-    from src.config.settings import settings
+    from src.app.core.config import settings
     APP_NAME = settings.app_name
     APP_VERSION = settings.app_version
     CORS_ORIGINS = settings.cors_origins
@@ -24,9 +24,9 @@ except Exception:
     APP_VERSION = "0.1.0"
     CORS_ORIGINS = ["*"]
 
-from src.api.middleware import add_correlation_id_middleware
-from src.api.errors import install_error_handlers
-from src.api.routes import health, metrics, collections, indexing, search, chat, feedback
+from src.app.middleware import add_correlation_id_middleware
+from src.app.errors import install_error_handlers
+from src.app.routes import health, metrics, collections, indexing, search, chat, feedback
 
 def create_app() -> FastAPI:
     app = FastAPI(title=APP_NAME, version=APP_VERSION)

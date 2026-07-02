@@ -5,9 +5,9 @@ import hashlib
 import time
 from pathlib import Path
 from typing import List
-from src.models.code_chunk import CodeChunk
-from src.config.settings import settings
-from src.utils.logging import get_logger
+from src.domain.entities import CodeChunk
+from src.app.core.config import settings
+from src.app.core.logging import get_logger
 
 logger = get_logger(__name__)
 
